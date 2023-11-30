@@ -2,12 +2,15 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 const { Circle, Triangle, Square } = require("./lib/shapes");
 
+// shape creating function
+
 function writeToFile(fileName, answers) {
     let svgString = "";
     svgString = `<svg version="1.0" width="300" height="200" xmlns="http://www.w3.org/2000/svg">`;
     svgString += "<g>";
     svgString += `${answers.shape}`;
 
+// pick the different shapes
     let shapeChoice;
     if (answers.shape === "Circle") {
         shapeChoice = new Circle();
@@ -24,12 +27,13 @@ function writeToFile(fileName, answers) {
     svgString += "</g>";
     svgString += "</svg>";
 
+    // if successful, create a logo
     fs.writeFile(fileName, svgString, (err) => {
         err ? console.log(err) : console.log("Created logo.svg");
       });
 }
 
-
+// prompts for user input
 function promptUser() {
     inquirer
     .prompt([
@@ -69,5 +73,6 @@ function promptUser() {
     });
 }
 
+// run the promptor
 
 promptUser();
